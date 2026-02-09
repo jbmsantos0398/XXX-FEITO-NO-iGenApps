@@ -1,0 +1,463 @@
+<!-- Based on and extended from this idea: https://www.linkedin.com/feed/update/urn:li:activity:7401160695725256705/ -->
+
+<!-- Simplified, user-friendly WCAG summary (reader-focused copy) -->
+
+<a class="skip-link" href="#h1">Skip to main content</a>
+
+<main lang="en" dir="ltr" id="main">
+
+  <div class="wrap">
+    <div class="tags">#Accessibility &nbsp;&nbsp; #Usability</div>
+
+    <h1 id="h1" tabindex="-1"><abbr title="Web Content Accessibility Guidelines">WCAG</abbr> — A short guide to the rules & best practices</h1>
+
+    <p class="intro">Short and simple explanations of WCAG rules. Use it as a quick guide to get started, but you may need to check more details for your own project requirements.</p>
+
+    <div class="wrapper">
+
+      <!-- ÁUDIOS -->
+      <section class="col" aria-labelledby="level-a">
+        <h2 id="level-a">ÁUDIOS</h2>
+        <p class="strapline">Essential requirements</p>
+
+        <div class="panel">
+          <ul role="list">
+
+            <li>
+              <details>
+                <summary><span>Keyboard-only navigation</span></summary>
+                <p>Everything on the page must work using <b>only</b> a keyboard. You should be able to move around with the <kbd>Tab</kbd> or <kbd>Shift</kbd>+<kbd>Tab</kbd> keys and choose things with the <kbd>Enter</kbd> key.</p>
+
+                <pre><code>&lt;button&gt;Open menu&lt;/button&gt;
+&lt;a href="/next"&gt;Next step&lt;/a&gt;
+&lt;input id="name"&gt;</code></pre>
+                <p><small><b>Note:</b> Links use the <kbd>Enter</kbd> key. Buttons use <kbd>Enter</kbd> or <kbd>Space</kbd>. Radio buttons can be changed with the arrow keys.</small></p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>No keyboard traps (focus should not get stuck)</span></summary>
+                <p>When a popup opens, it is okay to keep the focus locked inside, but you must also be able to leave it using just the keyboard.</p>
+
+                <p>Make sure there is an easy way to close it, like the <kbd>Esc</kbd> key or a visible Close button you can reach by the keyboard. When it closes, focus should go back to the thing that opened it.</p>
+
+                <pre><code>// On modal close (example)
+focusTrap.deactivate();
+triggerButton.focus();</code></pre>
+                <p><small>Failure = user cannot leave the widget with the keyboard.</small></p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Meaningful alt text for images</span></summary>
+                <p>If an image adds important information, use an alt text that explains what the image shows. Screen readers read this text instead of the image.</p>
+
+                <p>If an image is only for decoration and does not add meaning, then leave the alt text empty (<code>alt=""</code>) so it is skipped.</p>
+                <pre><code>&lt;img src="chart.png" alt="Sales rose 20% in Q2"&gt;
+&lt;img src="decorative.png" alt=""&gt;</code></pre>
+              </details>
+            </li>
+            
+            <li>
+              <details>
+  <summary><span>Don’t use colour or visual clues on their own</span></summary>
+
+  <p>Do not use colour, shape, size, sound, or position by itself to explain something. People who cannot see colour or hear sounds still need to understand what to do. Always give information in another way too, such as text, labels, or icons with text.</p>
+
+  <pre><code>&lt;!-- Bad example --&gt;
+&lt;p&gt;Fields marked in red are required.&lt;/p&gt;;</code></pre>
+
+  <p><small><b>Tip:</b> Colour and visual cues are fine to use, but they must not be the only way people get important information.</small></p>
+</details>
+            </li>
+            
+            <li>
+              <details>
+  <summary><span>Make video and audio easy for everyone</span></summary>
+
+  <p>
+    If a video has people talking, it must have captions.
+    Captions (subtitles) show the spoken words as text on the screen.
+  </p>
+
+  <p>
+    If important things happen on screen, explain them.
+    This can be done with audio descriptions or a short written description.
+  </p>
+
+  <p>
+    If something is audio-only, add a text transcript.
+    If it is video-only, explain what it shows in text.
+  </p>
+
+  <pre><code>&lt;video controls&gt;
+  &lt;source src="talk.mp4"&gt;
+  &lt;track kind="captions" srclang="en" src="talk.vtt"&gt;
+&lt;/video&gt;</code></pre>
+
+  <p><small><b>Best practice</b> Do not autoplay sound. Always give people simple controls to play, pause, or mute.</small></p>
+</details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Avoid seizure-risk flashing</span></summary>
+                <p>Do not include flashing content that could trigger seizures. As a rule, avoid flashes that exceed the seizure thresholds.<br>
+                  If in doubt, run a seizure-safety checker — flashes that are small, low contrast, and not mostly red are safer.</p>
+                <p><small><b>General rule:</b> Don’t use fast flashing. Avoid anything that flashes more than three times a second, unless it clearly meets the WCAG safety limits for size, contrast, and colour.</small></p>
+
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Logical reading & focus order</span></summary>
+                <p>Make sure elements appear in the HTML in the same order that people see them on the page.
+                  This keeps the reading and focus order predictable for screen-reader and keyboard users.</p>
+                <p><small><b>Avoid</b> shifting elements with CSS. What people see should match the order in the HTML.</small></p>
+
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Inputs must have labels or accessible names</span></summary>
+                <p>Every form control needs a descriptive label. Use <code>&lt;label&gt;</code> or a programmatic accessible name
+                  (for example <code>aria-label</code>) for icon-only controls. If visible text exists, make sure the accessible name includes that text
+                  so voice activation and screen readers match the visible label.</p>
+                <pre><code>&lt;label for="email"&gt;Email&lt;/label&gt;
+&lt;input id="email" &hellip; &gt;
+
+&lt;button aria-label="Close"&gt;<span>X</span>&lt;/button&gt;</code></pre>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Descriptive link & button text</span></summary>
+                <p>Link and button labels should clearly explain what they do. Avoid vague phrases like “Click here.” If the same label repeats on a page,
+                  ensure surrounding context makes each link’s purpose clear.</p>
+                <pre><code>&lt;a href="/pricing"&gt;Compare pricing plans&lt;/a&gt;
+&lt;button&gt;Download report (PDF)&lt;/button&gt;</code></pre>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Allow pausing or stopping of motion</span></summary>
+                <p>Provide controls to pause, stop, or hide moving/animated content that might distract or cause discomfort.</p>
+              </details>
+            </li>
+
+          </ul>
+        </div>
+      </section>
+
+      <!-- LEVEL AA -->
+      <section class="col" aria-labelledby="level-aa">
+        <h2 id="level-aa">Level AA</h2>
+        <p class="strapline">Important improvements</p>
+
+        <div class="panel">
+          <ul role="list">
+
+            <li>
+              <details>
+                <summary><span>Clear heading structure</span></summary>
+                <p>Use headings to form a logical outline (don’t skip levels without reason). This makes it easy for assistive tech users to scan and navigate.</p>
+                <pre><code>&lt;h1&gt;Page title&lt;/h1&gt;
+&lt;h2&gt;Section&lt;/h2&gt;
+&lt;h3&gt;Subsection&lt;/h3&gt;</code></pre>
+                <p><small><b>Best practice:</b> Use one main <code>h1</code> heading to lead the page content.</small></p>
+
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Text contrast (minimum 4.5:1)</span></summary>
+                <p>Keep body text contrast at or above 4.5:1 against its background so people with low vision can read it.</p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Visible keyboard focus indicator</span></summary>
+                <p>Make focus visible with a clear outline or ring so keyboard users always know where they are on the page.</p>
+                <pre><code>:focus-visible {
+  outline: 2px solid #06f;
+  outline-offset: 2px;
+}</code></pre>
+                <p><small><b>Tip:</b> Make it a global feature where possible.</small></p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Text must work at 200% size</span></summary>
+                <p>Some people make text bigger so it is easier to read. Your page must still work when the text is twice as big (200%). At this size, words and buttons should not overlap, break, or become hard to use.</p>
+
+                <p>
+                  A quick way to test this is to zoom in your browser:<br>
+                  <strong>Windows:</strong> Press <kbd>Ctrl</kbd> + <kbd>+</kbd> a few times.<br>
+                  <strong>Mac:</strong> Press <kbd>Cmd</kbd> + <kbd>+</kbd> a few times.
+                </p>
+
+                <p><small><b>Note:</b> This is full-page zoom, not text-only resize, but it is usually enough to reveal layout issues. Text-only resizing may still require testing.</small></p>
+
+                <p><small><b>Tip:</b> Use pixel sizes for left and right spacing (margin or padding). It helps the layout stay readable when the text gets bigger.</small></p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Reflow to a single column on narrow viewports</span></summary>
+                <p>At narrow widths (320px or equivalent), most content should stack into a single column without horizontal scrolling.
+                  Large media like maps or wide tables may scroll horizontally but must still be usable.</p>
+              </details>
+            </li>
+            
+            <li>
+              <details>
+  <summary><span>Use comfortable touch targets</span></summary>
+
+  <p>Buttons and links should be big enough to tap easily, especially on touch screens. Touch targets should be at least <b>24px by 24px</b>. </p>
+
+  <p><small><b>Best practice:</b> Larger targets are easier to use. Aim for around <b>44px by 44px</b> wherever possible.</small></p>
+</details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Use real text (not images of text) where possible</span></summary>
+                <p>Prefer HTML text so content can be resized, searched, translated, and read by assistive tech.
+                  If a design requires text as an image (for branding or decorative reasons), ensure an accessible
+                  text alternative is provided (e.g., visible text nearby or appropriate <code>alt</code>).</p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Consistent navigation</span></summary>
+                <p>Keep navigation components and their order consistent across pages so users don’t have to relearn the layout.</p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Consistent form labels & instructions</span></summary>
+                <p>Use the same patterns for labels, hints, and error messages across forms to reduce confusion.</p>
+                <p>Generic best practice pattern (in error state):</p>
+                <pre><code>&lt;label for="input_id"&gt;Label text&lt;/label&gt;
+&lt;div id="input_hint_id"&gt;Hint text&lt;/label&gt;
+&lt;-- Fill type, autocomplete and inputmode to suit: --&gt;
+&lt;input id="input_id" aria-describedby="input_error_id input_hint_id" aria-invalid="true" type="" autocomplete="" inputmode=""&gt;
+&lt;div id="input_error_id"&gt;Error text and help&lt;/label&gt;</code></pre>
+                
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Live captions for live audio/video</span></summary>
+                <p>Provide real-time captions for live streams (different from pre-recorded captions which are supplied as files).</p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Expose status updates to assistive tech</span></summary>
+                <p>Use live regions (for example <code>role="status"</code> or <code>aria-live</code>) to announce non-modal status messages without moving keyboard focus.</p>
+                <pre><code>&lt;-- Preferred: --&gt;
+&lt;div role="status"&gt;Saved&lt;/div&gt;
+
+&lt;-- Alternative: --&gt;
+&lt;div aria-live="polite"&gt;Saved&lt;/div&gt;</code></pre>
+
+                <p><small><b>Best practice:</b> Don't use live regions to report individual input errors.</small></p>
+              </details>
+            </li>
+
+          </ul>
+        </div>
+      </section>
+
+      <!-- LEVEL AAA -->
+      <section class="col" aria-labelledby="level-aaa">
+        <h2 id="level-aaa">Level AAA</h2>
+        <p class="strapline">Useful extras</p>
+
+        <div class="panel">
+          <ul role="list">
+
+            <li>
+              <details>
+                <summary><span>Plain, easy language</span></summary>
+                <p>Use clear, simple wording and avoid jargon where possible. Add summaries or examples for complex content.</p>
+                <p><small><b>Note:</b> The average reading age in the UK is 9-11 years old, write accordingly.</small></p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Expand acronyms on first use</span></summary>
+                <p>Explain acronyms so everyone understands them.</p>
+                <pre><code>&lt;p&gt;Accessible Rich Internet Applications (ARIA)&lt;/p&gt;
+&lt;abbr title="Accessible Rich Internet Applications"&gt;ARIA&lt;/abbr&gt;</code></pre>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Higher contrast (7:1) where practical</span></summary>
+                <p>For people with very low vision, higher contrast improves readability — aim for 7:1 where practical.</p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>No autoplay background audio</span></summary>
+                <p>Don’t start background audio automatically. If audio plays, provide a clear control to pause or stop it.</p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Extended audio descriptions</span></summary>
+                <p>For visually rich videos, provide longer audio descriptions so blind users can access important visual information.</p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Sign language options</span></summary>
+                <p>Consider offering sign-language interpretation for videos, where appropriate for your audience.</p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Help with pronunciation</span></summary>
+                <p>Offer phonetic hints for unusual names or terms when helpful (for example with an <code>aria-describedby</code> reference).</p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Allow re-authentication without data loss</span></summary>
+                <p>If a session times out, let users sign in again and come back to their unfinished work without losing input.</p>
+              </details>
+            </li>
+
+          </ul>
+        </div>
+      </section>
+
+      <!-- BEST PRACTICES -->
+      <section class="col" aria-labelledby="best-practices">
+        <h2 id="best-practices">Best practices</h2>
+        <p class="strapline">Helpful tips</p>
+
+        <div class="panel">
+          <ul role="list">
+
+            <li>
+              <details>
+                <summary><span>Warn when links open a new tab</span></summary>
+                <p>Tell users if a link opens a new window or tab to avoid surprises (for example add “(opens in new tab)” to the visible label).</p>
+                <pre><code>&lt;a href="/docs" target="_blank" rel="noopener"&gt;Docs (opens in new tab)&lt;/a&gt;</code></pre>
+                <p><small><b>Note:</b> Use text if you can. If you use an icon, give it a title, alt text, or an accessible name.</small></p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Align accessible names with visible labels</span></summary>
+                <p>Make sure programmatic accessible names (<abbr title="Accessible Rich Internet Applications">ARIA</abbr>) include the visible label text when present. This helps voice activation and prevents mismatches between what users see and what assistive tech reads.</p>
+                <pre><code>&lt;button aria-label="Save changes"&gt;Save&lt;/button&gt;</code></pre>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Provide a “Skip to main content” link</span></summary>
+                <p>Give keyboard users a way to jump past repeated navigation to the main content. Ensure the link is visible on focus.</p>
+                <pre><code>&lt;a href="#h1" class="skip-link"&gt;Skip to main content&lt;/a&gt;
+...
+&lt;h1 id="h1" tabindex="-1"&gt;Main heading, which precedes the content&lt;/h1&gt;
+</code></pre>
+                <p><small><b>Note:</b> The <code>tabindex="-1"</code> lets skip-links send focus to the heading without adding it to the normal tab order.</small></p>
+
+                <p><small><b>Best practice:</b> Skip links cause fewer problems when they point to the main heading (<code>h1</code>) instead of the whole content area.</small></p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Prefer native HTML over ARIA</span></summary>
+                <p>Use built-in elements when possible. Only use ARIA when no native option exists.</p>
+                <p><small><b>Remember:</b> No ARIA is better than bad ARIA.</small></p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Clear inline help and examples</span></summary>
+                <p>Show short hints or examples near form fields so users know the expected format (for example date format).</p>
+                <pre><code>&lt;label for="dob"&gt;Date of birth &lt;small&gt;(DD-MM-YYYY)&lt;/small&gt;&lt;/label&gt;</code></pre>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Label icons used as buttons</span></summary>
+                <p>Icons used as buttons must have visible text or an accessible name (for example <code>aria-label</code>). If the control also shows text, include that text in the accessible name (label-in-name).</p>
+                <pre><code>&lt;button aria-label="Play"&gt;<span>&#9654;</span>&lt;/button&gt;</code></pre>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Give helpful, actionable error messages</span></summary>
+                <p>Error messages should explain what went wrong and how to fix it. Place the message next to the field so users can spot the problem quickly, and make sure it is exposed programmatically.</p>
+                <p>Connect the message to the input with <code>aria-describedby</code> and mark the field with <code>aria-invalid="true"</code> like so:</p>
+
+                <pre><code>&lt;label for="email"&gt;Email address&lt;/label&gt;
+&lt;input id="email" name="email" aria-describedby="email-error" aria-invalid="true"&gt;
+&lt;p id="email-error"&gt;Please enter a valid email, e.g. name@example.com.&lt;/p&gt;
+
+&lt;!-- Use role="alert" only for submission-level messages --&gt;
+&lt;div role="alert">Form submission failed — please fix the highlighted fields.&lt;/div&gt;</code></pre>
+
+                <p><small><b>Best practice:</b> Don't use <code>role="alert"</code> for each field error, as it can interrupt people, only use it upon form submission.</small></p>
+              </details>
+            </li>
+
+            <li>
+              <details>
+                <summary><span>Use type, autocomplete and inputmode</span></summary>
+                <p>Help people fill in forms faster and with fewer mistakes. Use the right input <code>type</code> so the browser knows what the field is for.</p>
+                <p>Use <code>autocomplete</code> so browsers can suggest saved details, like names or email addresses. Use <code>inputmode</code> to show the best keyboard on mobile devices.</p>
+
+                <pre><code>&lt;input type="text" autocomplete="family-name"&gt;
+&lt;input type="email" autocomplete="email" inputmode="email"&gt;
+&lt;input type="tel" autocomplete="tel" inputmode="tel"&gt;</code></pre>
+                
+                <p><small><b>Avoid</b> using <code>type="number"</code>  unless moving the value up or down makes sense, like choosing a quantity.</small></p>
+
+                <p><small><b>Best practice:</b> <a href="https://better-mobile-inputs.netlify.app/" target="_blank" rel="noopener" title="opens in new tab">Build a Better Mobile Input</a></small></p>
+              </details>
+            </li>
+
+          </ul>
+        </div>
+      </section>
+
+    </div>
+
+    <p class="last-words">WCAG gives you the basics, but great accessibility comes from designing for the whole Accessibility Experience (AX). Aim to create components and pages that feel comfortable and intuitive for everyone to use.</p>
+
+  </div>
+</main>
