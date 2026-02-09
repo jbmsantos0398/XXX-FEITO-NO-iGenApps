@@ -1,0 +1,317 @@
+:root {
+  --bg: #f4f6fa;
+  --text: #0a0a0a;
+  --text1: #1a1a1a;
+  --text2: #2a2a2a;
+  --text3: #3a3a3a;
+  --subtle: #666;
+  --panel: #dfe7f2;
+  --arrows: #999;
+  --border: #0003;
+  
+  --hover: #000;
+  --focus: #06f;
+  
+  --pre: #f4f6fa;
+  --preBg: #3a3a3a;
+  
+  --radius: 12px;
+  --radius-2: calc(var(--radius) / 2);
+  --radius-3: calc(var(--radius) / 3);
+  
+  --fontSans: "Inter", system-ui, sans-serif;
+  --fontMono: monospace,monospace;;
+  
+  --gridGap: var(--spacing);
+  
+  --spacing-3: calc(var(--spacing) / 4);
+  --spacing-2: calc(var(--spacing) / 2);
+  --spacing-1: calc(var(--spacing) * 3 / 4);
+  --spacing: 16px;
+  --spacing1: calc(var(--spacing) * 1.25);
+  --spacing2: calc(var(--spacing) * 1.5);
+  --spacing3: calc(var(--spacing) * 2);
+}
+
+/* Reset + Base ----------------------------- */
+*, ::before, ::after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: var(--spacing);
+  background: var(--bg);
+  font-family: var(--fontSans);
+  color: var(--text2);
+  line-height: 1.5;
+}
+@media (min-width:60em) {
+  body {
+    --gridGap: var(--spacing2);
+    padding: var(--spacing2);
+  }
+}
+@media (min-width:120em) {
+  body {
+    --gridGap: var(--spacing3);
+    padding: var(--spacing3);
+  }
+}
+
+.wrap {
+  max-width: 1920px;
+  margin: var(--spacing) auto;
+}
+
+/* Typography ------------------------------ */
+:where(h1,h2,h3,h4,li,summary) {
+  line-height: 1.3;
+}
+:where(h1,h2,h3,h4,p,li,summary) {
+  text-wrap: balance;
+}
+h1 {
+  font-size: 2rem;
+}
+h1 + * {
+  margin: var(--spacing) 0;
+}
+h2 {
+  font-size: 1.5rem;
+}
+h2 + * {
+  margin: var(--spacing-3) 0 var(--spacing);
+  color: var(--subtle);
+  font-weight: 500;
+}
+
+small {
+  color: var(--text1);
+  font-size: .85em;
+}
+
+a[href] {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: text-decoration-thickness .3s ease-in-out,
+     text-underline-offset .3s ease-in-out;
+}
+a[href]:is(:hover, :focus) {
+  text-decoration-thickness: 4px;
+  text-underline-offset: var(--spacing-3);
+}
+
+kbd, .kbd, code > span {
+  font-family: var(--fontMono);
+  font-size: 85%;
+  line-height: 2.3;
+  white-space: nowrap;
+  
+  color: var(--text1);
+  background: linear-gradient(180deg, #f4f4f4, #d5d5d5);
+  background-color: #f4f4f4;
+  
+  outline: 1px solid #a6a6a6;
+  border-radius: 2px;
+  box-shadow: 0 2px #a6a6a6;
+  padding: .2em .35em .1em;
+  margin: auto 2px;
+}
+code > .kbd, code > span {
+  box-shadow: none;
+  font-weight:700;
+  display: inline-flex;
+  padding: 0 .75em 0 .8em;
+}
+
+.tags {
+  color: var(--subtle);
+  margin-block-end: var(--spacing);
+  font-size: 1rem;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip-link:focus {
+  position: static;
+  left: auto;
+}
+
+/* Layout: Responsive Column Grid ---------- */
+.wrapper {
+  --grid-template-columns: 1fr;
+  display: grid;
+  grid-template-columns: var(--grid-template-columns, 1fr);
+  gap: var(--gridGap);
+}
+
+@media (min-width: 40em) {
+  .wrapper {
+    --grid-template-columns: repeat(2, calc(50% - var(--gridGap) / 2));
+  }
+}
+
+@media (min-width: 80em) {
+  .wrapper {
+    --grid-template-columns: repeat(4, calc(25% - var(--gridGap) * 3 / 4));
+  }
+}
+
+@media (min-width: 120em) {
+  .wrapper {
+    gap: var(--spacing3);
+  }
+}
+
+section {
+  margin-block-start: var(--spacing);
+}
+
+/* Panel ----------------------------------- */
+.col .panel {
+  background: var(--panel);
+  padding: var(--spacing);
+  border-radius: var(--radius);
+}
+
+[role=list] {
+  padding: 0;
+  list-style: none;
+}
+:where(ul, ol) > li + li {
+  margin-block-start: var(--spacing);
+}
+
+/* ---------------------------------------------
+   DETAILS / SUMMARY ENHANCEMENTS
+   --------------------------------------------- */
+
+details {
+  --_margin: var(--spacing) 0 var(--spacing) var(--spacing2);
+  max-width: calc(100vw - var(--spacing3) - var(--spacing3));
+}
+
+/* Summary: clickable label */
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text1);
+  list-style: none;
+  padding-block: var(--spacing-3);
+  font-size: 1rem;
+}
+summary:hover {
+  color: var(--hover);
+}
+
+/* Remove default marker */
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Custom chevron */
+summary::before {
+  content: "▶";
+  display: inline-block;
+  margin-inline-end: 12px;
+  transition: transform .3s ease-in-out;
+  font-size: .85rem;
+  color: var(--arrows);
+}
+
+/* Chevron rotates when open */
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+/* Details text block */
+details > p {
+  color: var(--text3);
+  margin: var(--_margin);
+  line-height: 1.5;
+}
+details > p:has(small) {
+  line-height: 1.3;
+}
+
+summary + p {
+  margin-block-start: var(--spacing-2);
+}
+
+/* Animating a details summary dropdown with progressive enhancement and doesn't require any JavaScript */
+
+/* 14/03/2025 - Doesn't animate in Firefox Dev or Safari yet. Still opens & closes but without animation (progressive enhancement). */
+
+/* Support: https://caniuse.com/?search=interpolate-size */
+
+:root {
+  /* Coming soon to all browsers not just Chrome. */
+  interpolate-size: allow-keywords;
+}
+details::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size .3s ease-in-out,
+    content-visibility .3s ease-in-out;
+  transition-behavior: allow-discrete;
+}
+details[open]::details-content {
+  block-size: auto;
+}
+summary {
+  
+  /* A new line on the summary element aligns with first line, rather than the arrow */
+/*   margin-inline-start: 1rem; */
+/*   list-style-position: outside; */
+  
+  cursor: pointer;
+  position: relative;
+}
+
+/* A new line on the summary element aligns with first line, rather than the arrow */
+summary > span {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(100% - var(--spacing2) - 12px);
+}
+
+
+
+
+/* Code blocks */
+pre, code {
+  font-family: var(--fontMono);
+  font-size: .95em;
+  letter-spacing: -0.05em;
+}
+pre {
+  background: var(--preBg);
+  color: var(--pre);
+  padding: var(--spacing-2);
+  border-radius: var(--radius-2);
+  margin: var(--_margin);
+  line-height: 2;
+  overflow-x: auto;
+}
+pre > code {
+  letter-spacing: 0;
+}
+
+
+/* Focus states (accessible) */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-3);
+}
+
+
+.last-words {
+  margin-top: var(--spacing3);
+  font-size: larger;
+}
